@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const skills = [
   { name: "Mobile Testing", category: "QA" },
@@ -26,33 +27,89 @@ const Skills = () => {
     return acc;
   }, {});
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  const categoryVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100
+      }
+    }
+  };
+
   return (
-    <section id="skills" className="min-h-screen px-6 py-20 bg-[#0a0a0a]">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-12">
+    <section id="skills" className="min-h-screen px-6 py-20 bg-[#0a0a0a] relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-white opacity-[0.02] rounded-full blur-[100px] pointer-events-none" />
+      
+      <div className="max-w-7xl mx-auto relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-12"
+        >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Skills & Technologies</h2>
           <p className="text-xl text-[#a3a3a3] max-w-2xl">
             Technologies and tools I work with to deliver quality software.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {Object.entries(groupedSkills).map(([category, skillList]) => (
-            <div key={category} className="bg-[#1f1f1f] border border-[#2d2d2d] p-6 rounded-lg">
-              <h3 className="text-xl font-bold text-white mb-4">{category}</h3>
+            <motion.div
+              key={category}
+              variants={categoryVariants}
+              whileHover={{ y: -5 }}
+              className="bg-[#1f1f1f]/50 backdrop-blur-sm border border-[#2d2d2d] p-6 rounded-lg hover:border-[#404040] transition-all duration-300 group"
+            >
+              <motion.h3
+                className="text-xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-300"
+              >
+                {category}
+              </motion.h3>
               <div className="flex flex-wrap gap-2">
                 {skillList.map((skill, index) => (
-                  <span
+                  <motion.span
                     key={index}
-                    className="px-3 py-2 bg-[#0a0a0a] border border-[#2d2d2d] text-[#a3a3a3] rounded hover:border-white hover:text-white transition-all duration-200 cursor-default"
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.05 }}
+                    whileHover={{
+                      scale: 1.1,
+                      backgroundColor: '#404040',
+                      color: '#ffffff',
+                      borderColor: '#ffffff'
+                    }}
+                    className="px-3 py-2 bg-[#0a0a0a] border border-[#2d2d2d] text-[#a3a3a3] rounded transition-all duration-200 cursor-default"
                   >
                     {skill}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

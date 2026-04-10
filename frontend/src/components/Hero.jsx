@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, ArrowRight } from 'lucide-react';
+import { Github, Linkedin, Mail, Sparkles } from 'lucide-react';
 import { Button } from './ui/button';
 import axios from 'axios';
+import { motion } from 'framer-motion';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -25,81 +26,194 @@ const Hero = () => {
     fetchProfile();
   }, []);
 
+  // Animated counter
+  const AnimatedCounter = ({ end, duration = 2 }) => {
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+      if (end === 0) return;
+      let start = 0;
+      const increment = end / (duration * 60);
+      const timer = setInterval(() => {
+        start += increment;
+        if (start >= end) {
+          setCount(end);
+          clearInterval(timer);
+        } else {
+          setCount(Math.floor(start));
+        }
+      }, 1000 / 60);
+      return () => clearInterval(timer);
+    }, [end, duration]);
+
+    return <span>{count}</span>;
+  };
+
   if (loading) {
     return (
       <section className="min-h-screen flex items-center justify-center px-6 pt-20">
-        <div className="text-[#a3a3a3]">Loading...</div>
+        <motion.div
+          animate={{ opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="text-[#a3a3a3] flex items-center gap-2"
+        >
+          <Sparkles className="animate-spin" size={20} />
+          Loading...
+        </motion.div>
       </section>
     );
   }
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 pt-20">
-      <div className="max-w-4xl w-full">
-        <div className="mb-6 flex items-center gap-6">
+    <section className="min-h-screen flex items-center justify-center px-6 pt-20 relative overflow-hidden">
+      {/* Animated background gradients */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.03, 0.05, 0.03],
+          }}
+          transition={{ duration: 8, repeat: Infinity }}
+          className="absolute -top-1/2 -right-1/2 w-full h-full bg-white rounded-full blur-[120px]"
+        />
+        <motion.div
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.05, 0.03, 0.05],
+          }}
+          transition={{ duration: 8, repeat: Infinity, delay: 1 }}
+          className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-white rounded-full blur-[120px]"
+        />
+      </div>
+
+      <div className="max-w-4xl w-full relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-6 flex items-center gap-6"
+        >
           {profile?.avatar_url && (
-            <img
-              src={profile.avatar_url}
-              alt={profile.name}
-              className="w-20 h-20 rounded-full border-2 border-[#2d2d2d]"
-            />
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              className="relative"
+            >
+              <div className="absolute inset-0 bg-white opacity-20 rounded-full blur-xl animate-pulse" />
+              <img
+                src={profile.avatar_url}
+                alt={profile.name}
+                className="w-24 h-24 rounded-full border-2 border-[#2d2d2d] relative z-10 hover:border-white transition-colors duration-300"
+              />
+            </motion.div>
           )}
-          <div className="inline-block px-4 py-2 bg-[#1f1f1f] border border-[#2d2d2d] rounded-full">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="inline-block px-4 py-2 bg-[#1f1f1f]/80 backdrop-blur-sm border border-[#2d2d2d] rounded-full hover:border-[#404040] transition-all duration-300"
+          >
             <span className="text-[#a3a3a3] text-sm">QA Engineer & Jr Mobile Developer</span>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-          {profile?.name || 'Süleyman Yiğit'}
-        </h1>
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight"
+        >
+          {profile?.name?.split(' ').map((word, index) => (
+            <motion.span
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 + index * 0.1, duration: 0.6 }}
+              className="inline-block mr-4"
+            >
+              {word}
+            </motion.span>
+          )) || 'Süleyman Yiğit'}
+        </motion.h1>
 
-        <p className="text-xl md:text-2xl text-[#a3a3a3] mb-8 max-w-2xl leading-relaxed">
-          {profile?.bio || 'Building quality software through rigorous testing and elegant mobile solutions. Passionate about automation, clean code, and exceptional user experiences.'}
-        </p>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+          className="text-xl md:text-2xl text-[#a3a3a3] mb-8 max-w-2xl leading-relaxed"
+        >
+          {profile?.bio || 'Building quality software through rigorous testing and elegant mobile solutions.'}
+        </motion.p>
 
-        <div className="flex flex-wrap gap-4 mb-12">
-          <Button
-            variant="outline"
-            className="bg-white text-black hover:bg-[#e5e5e5] border-white transition-colors duration-200"
-            onClick={() => window.open(profile?.html_url || 'https://github.com/YigitSezenn', '_blank')}
-          >
-            <Github className="mr-2" size={20} />
-            View GitHub
-          </Button>
-          <Button
-            variant="outline"
-            className="bg-transparent text-white border-[#2d2d2d] hover:border-white hover:bg-[#1f1f1f] transition-all duration-200"
-            onClick={() => window.open('https://www.linkedin.com/in/suleymanyigit', '_blank')}
-          >
-            <Linkedin className="mr-2" size={20} />
-            LinkedIn
-          </Button>
-          {profile?.email && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.6 }}
+          className="flex flex-wrap gap-4 mb-12"
+        >
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
               variant="outline"
-              className="bg-transparent text-white border-[#2d2d2d] hover:border-white hover:bg-[#1f1f1f] transition-all duration-200"
-              onClick={() => window.location.href = `mailto:${profile.email}`}
+              className="bg-white text-black hover:bg-[#e5e5e5] border-white transition-all duration-300 shadow-lg hover:shadow-white/20"
+              onClick={() => window.open(profile?.html_url || 'https://github.com/YigitSezenn', '_blank')}
             >
-              <Mail className="mr-2" size={20} />
-              Email
+              <Github className="mr-2" size={20} />
+              View GitHub
             </Button>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button
+              variant="outline"
+              className="bg-transparent text-white border-[#2d2d2d] hover:border-white hover:bg-[#1f1f1f] transition-all duration-300"
+              onClick={() => window.open('https://www.linkedin.com/in/suleymanyigit', '_blank')}
+            >
+              <Linkedin className="mr-2" size={20} />
+              LinkedIn
+            </Button>
+          </motion.div>
+          {profile?.email && (
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                variant="outline"
+                className="bg-transparent text-white border-[#2d2d2d] hover:border-white hover:bg-[#1f1f1f] transition-all duration-300"
+                onClick={() => window.location.href = `mailto:${profile.email}`}
+              >
+                <Mail className="mr-2" size={20} />
+                Email
+              </Button>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
 
-        <div className="flex flex-wrap gap-8 text-[#a3a3a3]">
-          <div>
-            <div className="text-3xl font-bold text-white mb-1">{profile?.public_repos || 0}</div>
-            <div className="text-sm">Public Repositories</div>
-          </div>
-          <div>
-            <div className="text-3xl font-bold text-white mb-1">{profile?.followers || 0}</div>
-            <div className="text-sm">GitHub Followers</div>
-          </div>
-          <div>
-            <div className="text-3xl font-bold text-white mb-1">5+</div>
-            <div className="text-sm">Technologies</div>
-          </div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+          className="flex flex-wrap gap-8 text-[#a3a3a3]"
+        >
+          {[
+            { value: profile?.public_repos || 0, label: 'Public Repositories' },
+            { value: profile?.followers || 0, label: 'GitHub Followers' },
+            { value: 5, label: 'Technologies', suffix: '+' }
+          ].map((stat, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.8 + index * 0.1, type: "spring" }}
+              whileHover={{ scale: 1.1, y: -5 }}
+              className="group cursor-default"
+            >
+              <div className="text-3xl font-bold text-white mb-1 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-500 transition-all duration-300">
+                <AnimatedCounter end={stat.value} />
+                {stat.suffix}
+              </div>
+              <div className="text-sm">{stat.label}</div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
