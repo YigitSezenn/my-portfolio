@@ -40,13 +40,13 @@ const Contact = () => {
           </a>
 
           <a
-            href="mailto:contact@yigitsezen.dev"
+            href="mailto:ysezenn@outlook.com"
             className="flex items-center gap-3 px-6 py-4 bg-[#1f1f1f] border border-[#2d2d2d] rounded-lg hover:border-white transition-all duration-200 group"
           >
             <Mail className="text-[#a3a3a3] group-hover:text-white transition-colors" size={24} />
             <div>
               <div className="text-white font-medium">Email</div>
-              <div className="text-[#a3a3a3] text-sm">Get in touch</div>
+              <div className="text-[#a3a3a3] text-sm">ysezenn@outlook.com</div>
             </div>
           </a>
         </div>

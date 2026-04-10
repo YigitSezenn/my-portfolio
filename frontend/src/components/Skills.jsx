@@ -1,5 +1,21 @@
 import React from 'react';
-import { skills } from '../mock';
+
+const skills = [
+  { name: "Mobile Testing", category: "QA" },
+  { name: "Automation", category: "QA" },
+  { name: "Selenium", category: "QA" },
+  { name: "Appium", category: "QA" },
+  { name: "API Testing", category: "QA" },
+  { name: "React Native", category: "Development" },
+  { name: "Android", category: "Development" },
+  { name: "Kotlin", category: "Development" },
+  { name: "JavaScript", category: "Development" },
+  { name: "TypeScript", category: "Development" },
+  { name: "Python", category: "Development" },
+  { name: "Java", category: "Development" },
+  { name: "CI/CD", category: "DevOps" },
+  { name: "Git", category: "DevOps" }
+];
 
 const Skills = () => {
   const groupedSkills = skills.reduce((acc, skill) => {
