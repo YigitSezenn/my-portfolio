@@ -44,6 +44,15 @@ code {
         --chart-4: 43 74% 66%;
         --chart-5: 27 87% 67%;
         --radius: 0.5rem;
+        
+        /* Custom portfolio colors - Light */
+        --bg-primary: 255 255 255;
+        --bg-secondary: 249 249 249;
+        --bg-card: 255 255 255;
+        --text-primary: 10 10 10;
+        --text-secondary: 115 115 115;
+        --border-color: 229 229 229;
+        --border-hover: 163 163 163;
     }
     .dark {
         --background: 0 0% 3.9%;
@@ -70,6 +79,15 @@ code {
         --chart-3: 30 80% 55%;
         --chart-4: 280 65% 60%;
         --chart-5: 340 75% 55%;
+        
+        /* Custom portfolio colors - Dark */
+        --bg-primary: 10 10 10;
+        --bg-secondary: 15 15 15;
+        --bg-card: 31 31 31;
+        --text-primary: 255 255 255;
+        --text-secondary: 163 163 163;
+        --border-color: 45 45 45;
+        --border-hover: 64 64 64;
     }
 }
 
@@ -78,8 +96,37 @@ code {
         @apply border-border;
     }
     body {
-        @apply bg-background text-foreground;
+        @apply bg-background text-foreground transition-colors duration-300;
     }
+}
+
+/* Custom utility classes for theme colors */
+.bg-theme-primary {
+    background-color: rgb(var(--bg-primary));
+}
+
+.bg-theme-secondary {
+    background-color: rgb(var(--bg-secondary));
+}
+
+.bg-theme-card {
+    background-color: rgb(var(--bg-card));
+}
+
+.text-theme-primary {
+    color: rgb(var(--text-primary));
+}
+
+.text-theme-secondary {
+    color: rgb(var(--text-secondary));
+}
+
+.border-theme {
+    border-color: rgb(var(--border-color));
+}
+
+.border-theme-hover {
+    border-color: rgb(var(--border-hover));
 }
 
 @layer base {

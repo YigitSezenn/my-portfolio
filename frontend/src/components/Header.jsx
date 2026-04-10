@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +31,7 @@ const Header = () => {
       transition={{ type: "spring", stiffness: 100 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-[#0a0a0a]/95 backdrop-blur-md border-b border-[#2d2d2d] shadow-lg shadow-black/20'
+          ? 'bg-theme-primary/95 backdrop-blur-md border-b border-theme shadow-lg shadow-black/20 dark:shadow-white/5'
           : 'bg-transparent'
       }`}
     >
@@ -38,13 +40,13 @@ const Header = () => {
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="text-xl font-bold text-white cursor-pointer"
+            className="text-xl font-bold text-theme-primary cursor-pointer"
           >
             YigitSezen
             <motion.span
               animate={{ opacity: [1, 0, 1] }}
               transition={{ duration: 1.5, repeat: Infinity }}
-              className="text-[#a3a3a3]"
+              className="text-theme-secondary"
             >
               .
             </motion.span>
@@ -59,49 +61,98 @@ const Header = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 onClick={() => scrollToSection(item)}
-                className="text-[#a3a3a3] hover:text-white transition-colors duration-200 relative group capitalize"
+                className="text-theme-secondary hover:text-theme-primary transition-colors duration-200 relative group capitalize"
               >
                 {item}
                 <motion.div
-                  className="absolute -bottom-1 left-0 h-0.5 bg-white"
+                  className="absolute -bottom-1 left-0 h-0.5 bg-theme-primary"
                   initial={{ width: 0 }}
                   whileHover={{ width: '100%' }}
                   transition={{ duration: 0.2 }}
                 />
               </motion.button>
             ))}
+            
+            {/* Theme Toggle Button */}
+            <motion.button
+              whileHover={{ scale: 1.1, rotate: 180 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={toggleTheme}
+              className="p-2 rounded-full bg-theme-card border border-theme hover:border-theme-hover transition-all duration-200"
+              aria-label="Toggle theme"
+            >
+              <AnimatePresence mode="wait">
+                {theme === 'dark' ? (
+                  <motion.div
+                    key="sun"
+                    initial={{ rotate: -180, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 180, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Sun size={20} className="text-theme-primary" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="moon"
+                    initial={{ rotate: 180, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -180, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Moon size={20} className="text-theme-primary" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
           </nav>
 
-          {/* Mobile Menu Button */}
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            className="md:hidden text-white"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <AnimatePresence mode="wait">
-              {isMenuOpen ? (
-                <motion.div
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <X size={24} />
-                </motion.div>
+          {/* Mobile Menu Button & Theme Toggle */}
+          <div className="md:hidden flex items-center gap-3">
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={toggleTheme}
+              className="p-2 rounded-full bg-theme-card border border-theme"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? (
+                <Sun size={18} className="text-theme-primary" />
               ) : (
-                <motion.div
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Menu size={24} />
-                </motion.div>
+                <Moon size={18} className="text-theme-primary" />
               )}
-            </AnimatePresence>
-          </motion.button>
+            </motion.button>
+            
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              className="text-theme-primary"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <AnimatePresence mode="wait">
+                {isMenuOpen ? (
+                  <motion.div
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <X size={24} />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Menu size={24} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -123,7 +174,7 @@ const Header = () => {
                     transition={{ delay: index * 0.1 }}
                     whileHover={{ x: 5 }}
                     onClick={() => scrollToSection(item)}
-                    className="text-[#a3a3a3] hover:text-white transition-colors duration-200 text-left capitalize"
+                    className="text-theme-secondary hover:text-theme-primary transition-colors duration-200 text-left capitalize"
                   >
                     {item}
                   </motion.button>
