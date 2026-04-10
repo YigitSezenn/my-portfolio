@@ -14,19 +14,21 @@ function App() {
     <ThemeProvider>
       <LanguageProvider>
         <div className="App min-h-screen transition-colors duration-300 relative overflow-hidden">
-          {/* Hatsune Miku Background */}
+          {/* Hatsune Miku Background - Visible */}
           <div className="fixed inset-0 z-0">
             <div 
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{
                 backgroundImage: 'url(/hatsune-miku-bg.jpg)',
-                filter: 'brightness(0.3) saturate(1.2)'
+                filter: 'brightness(0.6)',
+                transform: 'scale(1.1)'
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-cyan-900/80 via-purple-900/70 to-pink-900/80 dark:from-cyan-950/90 dark:via-purple-950/80 dark:to-pink-950/90" />
-            <div className="absolute inset-0 backdrop-blur-sm" />
+            {/* Light cyan/pink gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-purple-600/30 to-pink-500/20" />
           </div>
 
+          {/* Content with glassmorphism */}
           <div className="relative z-10">
             <Header />
             <Hero />
