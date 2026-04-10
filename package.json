@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "install": "cd frontend && yarn install",
-    "build": "cd frontend && yarn build",
-    "start": "cd frontend && yarn start"
+    "build": "yarn workspace frontend build",
+    "start": "yarn workspace frontend start",
+    "dev": "yarn workspace frontend start"
   },
   "workspaces": [
     "frontend"

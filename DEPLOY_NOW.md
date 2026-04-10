@@ -50,24 +50,17 @@
 
 **C. Deploy Ayarları:**
 
+⚠️ **ÖNEMLİ:** Dashboard'daki tüm override ayarlarını **KALDIRIN** veya **BOŞ BIRAKIN**. `vercel.json` dosyası otomatik olarak doğru ayarları kullanacak.
+
 **Framework Preset:** `Other`
 
-**Root Directory:** `./` (boş bırak veya ./)
+**Root Directory:** Boş bırakın (ya da `./`)
 
-**Build Command:**
-```bash
-cd frontend && yarn install && yarn build
-```
+**Build Command:** Boş bırakın (vercel.json kullanacak)
 
-**Output Directory:**
-```
-frontend/build
-```
+**Output Directory:** Boş bırakın (vercel.json kullanacak)
 
-**Install Command:**
-```bash
-yarn install
-```
+**Install Command:** Boş bırakın (vercel.json kullanacak)
 
 **D. Environment Variables Ekle:**
 
