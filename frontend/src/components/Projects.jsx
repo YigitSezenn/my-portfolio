@@ -3,6 +3,7 @@ import { ExternalLink, Star, GitFork, Code, Sparkles } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from './ui/card';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -10,6 +11,7 @@ const API = `${BACKEND_URL}/api`;
 const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -72,7 +74,7 @@ const Projects = () => {
             animate={{ opacity: 1, y: 0 }}
             className="mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Projects</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{t.projects.title}</h2>
             <p className="text-xl text-[#a3a3a3] max-w-2xl flex items-center gap-2">
               <motion.div
                 animate={{ rotate: 360 }}
@@ -80,7 +82,7 @@ const Projects = () => {
               >
                 <Sparkles size={20} />
               </motion.div>
-              Loading projects from GitHub...
+              {t.projects.loading}
             </p>
           </motion.div>
         </div>
@@ -101,9 +103,9 @@ const Projects = () => {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-4">Projects</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-4">{t.projects.title}</h2>
           <p className="text-xl text-gray-600 dark:text-[#a3a3a3] max-w-2xl">
-            A collection of my open-source projects and contributions from GitHub.
+            {t.projects.subtitle}
           </p>
         </motion.div>
 
@@ -113,7 +115,7 @@ const Projects = () => {
             animate={{ opacity: 1 }}
             className="text-center text-[#a3a3a3] py-12"
           >
-            <p>No public repositories found.</p>
+            <p>{t.projects.noRepos}</p>
           </motion.div>
         ) : (
           <motion.div

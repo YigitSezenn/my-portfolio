@@ -1,8 +1,10 @@
 import React from 'react';
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 const Contact = () => {
+  const { t } = useLanguage();
   const contacts = [
     {
       icon: Github,
@@ -37,9 +39,9 @@ const Contact = () => {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-4">Get In Touch</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-4">{t.contact.title}</h2>
           <p className="text-xl text-gray-600 dark:text-[#a3a3a3] max-w-2xl">
-            Feel free to reach out for collaborations, opportunities, or just to say hello.
+            {t.contact.subtitle}
           </p>
         </motion.div>
 

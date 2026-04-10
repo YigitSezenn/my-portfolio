@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 const skills = [
   { name: "Mobile Testing", category: "QA" },
@@ -19,6 +20,7 @@ const skills = [
 ];
 
 const Skills = () => {
+  const { t } = useLanguage();
   const groupedSkills = skills.reduce((acc, skill) => {
     if (!acc[skill.category]) {
       acc[skill.category] = [];
@@ -62,9 +64,9 @@ const Skills = () => {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-4">Skills & Technologies</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-4">{t.skills.title}</h2>
           <p className="text-xl text-gray-600 dark:text-[#a3a3a3] max-w-2xl">
-            Technologies and tools I work with to deliver quality software.
+            {t.skills.subtitle}
           </p>
         </motion.div>
 
