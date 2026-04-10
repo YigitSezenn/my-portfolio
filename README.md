@@ -30,12 +30,18 @@ Professional portfolio website with dynamic GitHub integration and multi-languag
    - Click "Import"
 
 4. **Configure Project Settings**
+   
+   **Option 1: Automatic (Recommended)**
+   - Vercel will auto-detect settings from `vercel.json`
+   - Just click "Deploy"!
+   
+   **Option 2: Manual Configuration**
    ```
-   Framework Preset: Create React App
+   Framework Preset: Other
    Root Directory: ./
    Build Command: cd frontend && yarn install && yarn build
    Output Directory: frontend/build
-   Install Command: cd frontend && yarn install
+   Install Command: yarn install
    ```
 
 5. **Add Environment Variables**
