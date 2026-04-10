@@ -214,6 +214,25 @@ const Hero = () => {
             </motion.div>
           ))}
         </motion.div>
+
+        {/* About Me Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 0.6 }}
+          className="mt-12 max-w-2xl"
+        >
+          <div className="bg-gray-100 dark:bg-[#1f1f1f] border border-gray-200 dark:border-[#2d2d2d] p-6 rounded-lg">
+            <h3 className="text-lg font-bold text-black dark:text-white mb-3 flex items-center gap-2">
+              <span>💡</span> Hakkımda
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-[#a3a3a3] leading-relaxed">
+              QA Engineer ve Jr Mobile Developer olarak yazılım kalitesine tutkuyla bağlıyım. 
+              Test otomasyonu, mobil uygulama geliştirme ve temiz kod yazma konularında deneyimliyim. 
+              Her projede kullanıcı deneyimini ön planda tutarak, hatasız ve performanslı uygulamalar geliştirmeyi hedefliyorum.
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
