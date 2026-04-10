@@ -74,7 +74,7 @@ const Hero = () => {
             opacity: [0.03, 0.05, 0.03],
           }}
           transition={{ duration: 8, repeat: Infinity }}
-          className="absolute -top-1/2 -right-1/2 w-full h-full bg-white rounded-full blur-[120px]"
+          className="absolute -top-1/2 -right-1/2 w-full h-full bg-black dark:bg-white rounded-full blur-[120px]"
         />
         <motion.div
           animate={{
@@ -82,7 +82,7 @@ const Hero = () => {
             opacity: [0.05, 0.03, 0.05],
           }}
           transition={{ duration: 8, repeat: Infinity, delay: 1 }}
-          className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-white rounded-full blur-[120px]"
+          className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-black dark:bg-white rounded-full blur-[120px]"
         />
       </div>
 
@@ -101,11 +101,11 @@ const Hero = () => {
               whileHover={{ scale: 1.1, rotate: 5 }}
               className="relative"
             >
-              <div className="absolute inset-0 bg-white opacity-20 rounded-full blur-xl animate-pulse" />
+              <div className="absolute inset-0 bg-black dark:bg-white opacity-20 rounded-full blur-xl animate-pulse" />
               <img
                 src={profile.avatar_url}
                 alt={profile.name}
-                className="w-24 h-24 rounded-full border-2 border-[#2d2d2d] relative z-10 hover:border-white transition-colors duration-300"
+                className="w-24 h-24 rounded-full border-2 border-gray-300 dark:border-[#2d2d2d] relative z-10 hover:border-black dark:hover:border-white transition-colors duration-300"
               />
             </motion.div>
           )}
@@ -113,9 +113,9 @@ const Hero = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="inline-block px-4 py-2 bg-[#1f1f1f]/80 backdrop-blur-sm border border-[#2d2d2d] rounded-full hover:border-[#404040] transition-all duration-300"
+            className="inline-block px-4 py-2 bg-gray-100 dark:bg-[#1f1f1f]/80 backdrop-blur-sm border border-gray-200 dark:border-[#2d2d2d] rounded-full hover:border-gray-400 dark:hover:border-[#404040] transition-all duration-300"
           >
-            <span className="text-[#a3a3a3] text-sm">QA Engineer & Jr Mobile Developer</span>
+            <span className="text-gray-600 dark:text-[#a3a3a3] text-sm">QA Engineer & Jr Mobile Developer</span>
           </motion.div>
         </motion.div>
 
@@ -123,7 +123,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight"
+          className="text-5xl md:text-7xl font-bold text-black dark:text-white mb-6 leading-tight"
         >
           {profile?.name?.split(' ').map((word, index) => (
             <motion.span
@@ -142,7 +142,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
-          className="text-xl md:text-2xl text-[#a3a3a3] mb-8 max-w-2xl leading-relaxed"
+          className="text-xl md:text-2xl text-gray-600 dark:text-[#a3a3a3] mb-8 max-w-2xl leading-relaxed"
         >
           {profile?.bio || 'Building quality software through rigorous testing and elegant mobile solutions.'}
         </motion.p>
@@ -156,7 +156,7 @@ const Hero = () => {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
               variant="outline"
-              className="bg-white text-black hover:bg-[#e5e5e5] border-white transition-all duration-300 shadow-lg hover:shadow-white/20"
+              className="bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-[#e5e5e5] border-black dark:border-white transition-all duration-300 shadow-lg hover:shadow-black/20 dark:hover:shadow-white/20"
               onClick={() => window.open(profile?.html_url || 'https://github.com/YigitSezenn', '_blank')}
             >
               <Github className="mr-2" size={20} />
@@ -166,7 +166,7 @@ const Hero = () => {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
               variant="outline"
-              className="bg-transparent text-white border-[#2d2d2d] hover:border-white hover:bg-[#1f1f1f] transition-all duration-300"
+              className="bg-transparent text-black dark:text-white border-gray-300 dark:border-[#2d2d2d] hover:border-black dark:hover:border-white hover:bg-gray-100 dark:hover:bg-[#1f1f1f] transition-all duration-300"
               onClick={() => window.open('https://www.linkedin.com/in/suleymanyigit', '_blank')}
             >
               <Linkedin className="mr-2" size={20} />
@@ -177,7 +177,7 @@ const Hero = () => {
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button
                 variant="outline"
-                className="bg-transparent text-white border-[#2d2d2d] hover:border-white hover:bg-[#1f1f1f] transition-all duration-300"
+                className="bg-transparent text-black dark:text-white border-gray-300 dark:border-[#2d2d2d] hover:border-black dark:hover:border-white hover:bg-gray-100 dark:hover:bg-[#1f1f1f] transition-all duration-300"
                 onClick={() => window.location.href = `mailto:${profile.email}`}
               >
                 <Mail className="mr-2" size={20} />
@@ -191,7 +191,7 @@ const Hero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.6 }}
-          className="flex flex-wrap gap-8 text-[#a3a3a3]"
+          className="flex flex-wrap gap-8 text-gray-600 dark:text-[#a3a3a3]"
         >
           {[
             { value: profile?.public_repos || 0, label: 'Public Repositories' },
@@ -206,7 +206,7 @@ const Hero = () => {
               whileHover={{ scale: 1.1, y: -5 }}
               className="group cursor-default"
             >
-              <div className="text-3xl font-bold text-white mb-1 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-500 transition-all duration-300">
+              <div className="text-3xl font-bold text-black dark:text-white mb-1 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-black group-hover:to-gray-600 dark:group-hover:from-white dark:group-hover:to-gray-500 transition-all duration-300">
                 <AnimatedCounter end={stat.value} />
                 {stat.suffix}
               </div>
